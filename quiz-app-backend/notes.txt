@@ -1,0 +1,19 @@
+@Data annotation:
+All together now: A shortcut for @ToString, @EqualsAndHashCode, @Getter on all fields, @Setter on all non-final fields, and @RequiredArgsConstructor .
+
+repository methods :
+save(user)
+findById(id) --> Optional<User>
+
+
+Optional<User> methods :
+orElse(null);
+
+
+
+To see Lazy or Eagar loading
+ Use default constructor and write sys("constructor called..")
+ if constructor called then it is it lazy
+
+To see implementation of mapStruct interface
+ go to target-->generated source
