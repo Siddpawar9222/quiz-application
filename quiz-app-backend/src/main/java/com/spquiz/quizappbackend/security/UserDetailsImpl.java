@@ -71,3 +71,7 @@ public class UserDetailsImpl implements UserDetails {
     }
 
 }
+/*
+The @JsonIgnore annotation ensures that the password field is not included in JSON representations of the UserDetailsImpl object, enhancing security by preventing the password from being exposed in API responses or logs.
+@JsonIgnore annotation affects only the JSON serialization and deserialization processes. It does not affect how Spring Boot or the application itself initializes or uses the password field internally.
+ */

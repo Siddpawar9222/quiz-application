@@ -53,7 +53,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests((requests) ->
                         requests
 
-                                  .requestMatchers("/api/auth/*").permitAll()
+                                  .requestMatchers("/api/auth/*","/api/quiz/*").permitAll()
                                   .anyRequest().authenticated()
                 )
                 .authenticationProvider(authenticationProvider())

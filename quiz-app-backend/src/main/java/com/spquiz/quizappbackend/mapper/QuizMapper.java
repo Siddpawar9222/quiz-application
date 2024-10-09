@@ -2,21 +2,39 @@ package com.spquiz.quizappbackend.mapper;
 
 import com.spquiz.quizappbackend.dto.QuizDto;
 import com.spquiz.quizappbackend.model.Quiz;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.factory.Mappers;
-import java.util.List;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.PropertyMap;
+import org.modelmapper.convention.MatchingStrategies;
+import org.springframework.stereotype.Component;
 
-@Mapper
-public interface QuizMapper {
-    QuizMapper INSTANCE = Mappers.getMapper(QuizMapper.class);
+public  class QuizMapper {
+     public static Quiz dtoToEntity(QuizDto quizDto){
+         ModelMapper  modelMapper = new ModelMapper();
+         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
+         Quiz quiz = modelMapper.map(quizDto, Quiz.class);
+         return quiz ;
+     }
 
-    @Mapping(target = "quizId", ignore = true)
-    Quiz toEntity(QuizDto quizDto);
+    public static QuizDto entityToDto(Quiz quiz){
+        ModelMapper  modelMapper = new ModelMapper();
+        QuizDto quizDto = modelMapper.map(quiz, QuizDto.class);
+        return quizDto ;
+    }
 
-    @Mapping(target = "questions", ignore = true)
-    QuizDto toDto(Quiz quiz);
+    public static QuizDto entityToDtoSkipQuestions(Quiz quiz){
+        ModelMapper  modelMapper = new ModelMapper();
+        modelMapper.getConfiguration().setAmbiguityIgnored(true);
+        PropertyMap<Quiz, QuizDto> map = new PropertyMap<>() {
+            @Override
+            protected void configure() {
+                skip(destination.getQuestions());
+            }
+        };
 
-    List<QuizDto> toDto(List<Quiz> quizList);
+        modelMapper.addMappings(map);
+
+        QuizDto quizDto = modelMapper.map(quiz, QuizDto.class);
+        return quizDto ;
+    }
 
 }

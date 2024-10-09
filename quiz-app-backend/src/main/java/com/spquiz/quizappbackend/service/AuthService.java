@@ -85,7 +85,6 @@ public class AuthService {
     public String authenticateAndGetToken(UserDto userDto) throws LoginException {
         try {
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userDto.getUsername(), userDto.getPassword()));
-            System.out.println(authentication.isAuthenticated());
             if (authentication.isAuthenticated()) {
                 Integer userId = userRepository.findIdByUsername(userDto.getUsername());
                 return jwtService.generateToken(userDto.getUsername(), userId);

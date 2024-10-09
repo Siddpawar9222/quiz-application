@@ -13,6 +13,6 @@ import lombok.NoArgsConstructor;
 public class AnswerDto {
     private Long ansId;
     private String text ;
-//    @JsonIgnore
+    @JsonIgnore
     private  Boolean isCorrect ;
 }
